@@ -22,7 +22,7 @@ Discussion for the 5th week
 
 
 ### 二、Use Case Diagram用例图  
-
+![image](http://github.com/GuoZijie97/Computer-Network/raw/master/Pic-readme/usecase.jpg)
 
 ### 三、Requirements系统要求  
 根据系统Feature List和Use Case分析，我们以Use Case（用例）为驱动因素，得到相应的系统要求如下：
@@ -35,23 +35,23 @@ Discussion for the 5th week
 7. 系统需根据已售物品的买家评分，定时对每一位卖家计算个人平均信誉得分，展示在卖家信息中。
 
 ### 四、Activities Diagram活动图  
-
+![image](http://github.com/GuoZijie97/Computer-Network/raw/master/Pic-readme/Activities.jpg)
 
 
 
 
 ## 第二部分：Work Flow Diagram  
 ### 一、	用户注册  
-   用户注册需要同学填写姓名、学号信息等，通过管理员认证方可成功注册。
-
+   用户注册需要同学填写姓名、学号信息等，通过管理员认证方可成功注册。  
+![image](http://github.com/GuoZijie97/Computer-Network/raw/master/Pic-readme/Workflow1.png)
 
 ### 二、	发布商品  
-   用户进入后可管理个人商品界面并发布想要出售的商品。同时发布时可设置商品的价格、新旧程度、商品分类等标签。
- 
+   用户进入后可管理个人商品界面并发布想要出售的商品。同时发布时可设置商品的价格、新旧程度、商品分类等标签。  
+ ![image](http://github.com/GuoZijie97/Computer-Network/raw/master/Pic-readme/Workflow2.jpg)
 
 ### 三、	购买商品  
-   用户进入购买页面后可根据个人需求搜索商品，之后可查看商品详细信息，包括在商品下留言评论获取更多信息。挑选完成后，选择确认购买，便可获得卖家的个人联系方式。考虑到校园交易中当面交易的便利性，学生将通过微信、手机等方式联系彼此并当面交付。交易成功后卖家将在网上确认交易，商品交易信息进入成功订单信息库，同时商品将自动从商品库中撤下。
-
+   用户进入购买页面后可根据个人需求搜索商品，之后可查看商品详细信息，包括在商品下留言评论获取更多信息。挑选完成后，选择确认购买，便可获得卖家的个人联系方式。考虑到校园交易中当面交易的便利性，学生将通过微信、手机等方式联系彼此并当面交付。交易成功后卖家将在网上确认交易，商品交易信息进入成功订单信息库，同时商品将自动从商品库中撤下。  
+![image](http://github.com/GuoZijie97/Computer-Network/raw/master/Pic-readme/Workflow3.jpg)
 
 
 ## 第三部分：系统结构层次分析  
@@ -61,7 +61,8 @@ Discussion for the 5th week
    在网站部分，我们采用树形结构的设计方式，根据工作逻辑和用户使用习惯分为多层级的子栏目，以实现结构清晰、URL语意明确、识别度高、内部链接权值易于传递的目的。
  
 网站架构设计图  
-
+![image](http://github.com/GuoZijie97/Computer-Network/raw/master/Pic-readme/Structure.jpg)  
+![image](http://github.com/GuoZijie97/Computer-Network/raw/master/Pic-readme/Structure2.png)
 
 ### 二、	功能模块划分  
 根据系统业务属性进行切分，本网站的功能可以分为五个模块：买家模块、卖家模块、商品模块、订单模块、用户信息模块。  
@@ -182,4 +183,4 @@ Discussion for the 5th week
 负载均衡：  
 二手交易业务具有较强的时效性，在毕业季会出现业务量波峰，业务波峰波谷明显，需要弹性调控后端资源。将选用腾讯云提供的专业型场景的负载均衡解决方案。  
  
-
+![image](http://github.com/GuoZijie97/Computer-Network/raw/master/Pic-readme/Tencent.jpg)

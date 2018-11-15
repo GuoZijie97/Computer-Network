@@ -8,32 +8,32 @@ class user(models.Model):
     user_name = models.CharField(max_length=18)
     user_email = models.CharField(max_length=30)
     user_phone = models.IntegerField(default=0)
-    user_rating = models.FloatField(max_length=18)
+
 
 class goods(models.Model):
 
     Goods_Category = (
-        ('1', "生活用品"),
-        ('2', "图书文具"),
-        ('3', "鞋服配饰"),
-        ('4', "其他"),
+        ('1', "鞋服配饰"),
+        ('2', "生活用品"),
+        ('3', "交通工具"),
+        ('4', "图书电子"),
     )
 
     Goods_SubCategory = (
-        ('1', "家具"),
-        ('2', "家纺"),
-        ('3', "其他"),
-        ('4', "文具"),
-        ('5', "教材教辅"),
-        ('6', "课外书"),
-        ('7', "男装"),
-        ('8', "女装"),
-        ('9', "配饰"),
-        ('10', '箱包'),
-        ('11', '化妆品'),
-        ('12', '数码'),
-        ('13', '娱乐休闲'),
-        ('14', '运动'),
+        ('1', "女装"),
+        ('2', "男装"),
+        ('3', "鞋靴"),
+        ('4', "配饰箱包"),
+        ('5', "美妆洗护"),
+        ('6', "家具"),
+        ('7', "家纺/家饰"),
+        ('8', "百货"),
+        ('9', "自行车"),
+        ('10',"电动车"),
+        ('11', "配饰/箱包"),
+        ('12', "图书"),
+        ('13', "文具"),
+        ('14', "数码/电器"),
     )
     goods_id = models.AutoField(primary_key=True)
     seller_id = models.ForeignKey(user, on_delete=models.CASCADE)

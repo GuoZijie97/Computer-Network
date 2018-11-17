@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sell',
-    'user',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +81,7 @@ DATABASES = {
          'ENGINE': 'mysql.connector.django',
          'NAME': 'exchangedb',
          'USER': 'root',
-         'PASSWORD': '19970501',
+         'PASSWORD': '19970213',
          'HOST': 'localhost',
          'PORT': '3306',
     }

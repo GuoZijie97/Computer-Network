@@ -81,7 +81,7 @@ DATABASES = {
          'ENGINE': 'mysql.connector.django',
          'NAME': 'exchangedb',
          'USER': 'root',
-         'PASSWORD': '19970501',
+         'PASSWORD': '19970213',
          'HOST': 'localhost',
          'PORT': '3306',
     }

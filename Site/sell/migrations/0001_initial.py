@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='user',
+            name='users',
             fields=[
                 ('user_id', models.AutoField(primary_key=True, serialize=False)),
                 ('user_password', models.CharField(max_length=18)),
@@ -46,11 +46,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='order',
             name='seller_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='order_buyer_id', to='sell.user', verbose_name="the buyer's id"),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='order_buyer_id', to='sell.users', verbose_name="the buyer's id"),
         ),
         migrations.AddField(
             model_name='goods',
             name='seller_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sell.user'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sell.users'),
         ),
     ]

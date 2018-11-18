@@ -115,12 +115,12 @@ def pwd_change(request):
                 user.is_superuser = 0
                 user.is_staff = 0
                 user.save()
-                return HttpResponseRedirect(reverse('users:profile'))
+                return HttpResponseRedirect(reverse('users:login'))
 
             else:
                 return render(request, 'users/pwd_change.html', {'form': form,
                                                                  'user': user,
-                                                                 'message': '旧密码输入错误。请重试。'})
+                                                                 'message': '旧密码输入错误，请重试。'})
     else:
         form = PwdChangeForm()
 

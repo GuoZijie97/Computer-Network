@@ -102,9 +102,15 @@
                     </form>
                 </div>
                 <!-- User Login Info -->
+                {% if not request.user.is_authenticated %}
                  <div class="user-login-info">
-                    <a href="{% url 'users:login' %}" data-toggle="tooltip" data-placement="bottom" title="登录/登出"><img src="{% static 'sell/img/core-img/user.svg' %}" alt=""></a>
+                    <a href="{% url 'users:login' %}" data-toggle="tooltip" data-placement="bottom" title="登录"><img src="{% static 'sell/img/core-img/user.svg' %}" alt=""></a>
                 </div>
+                {% else %}
+                <div class="user-login-info">
+                    <a href="{% url 'users:logout' %}" data-toggle="tooltip" data-placement="bottom" title="退出登录"><img src="{% static 'sell/img/core-img/user.svg' %}" alt=""></a>
+                </div>
+                {% endif %}
             </div>
 
         </div>

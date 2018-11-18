@@ -47,7 +47,7 @@
                                 <div class="megamenu">
                                     <ul class="single-mega cn-col-4">
                                         <li class="title">鞋服配饰</li>
-                                        <li><a href="shop.html">女装</a></li>
+                                        <li><a href="{% url 'sell:women_clothes' %}">女装</a></li>
                                         <li><a href="shop.html">男装</a></li>
                                         <li><a href="shop.html">鞋靴</a></li>
                                         <li><a href="shop.html">配饰 / 箱包</a></li>
@@ -104,7 +104,7 @@
                 <!-- User Login Info -->
                 {% if not request.user.is_authenticated %}
                  <div class="user-login-info">
-                    <a href="{% url 'users:login' %}" data-toggle="tooltip" data-placement="bottom" title="登录"><img src="{% static 'sell/img/core-img/user.svg' %}" alt=""></a>
+                    <a href="{% url 'users:login' %}" data-toggle="tooltip" data-placement="bottom" title="登录/注册"><img src="{% static 'sell/img/core-img/user.svg' %}" alt=""></a>
                 </div>
                 {% else %}
                 <div class="user-login-info">

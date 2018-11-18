@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 <!-- ##### Breadcumb Area Start ##### -->
-    <div class="breadcumb_area bg-img" style="background-image: url({% static "sell/img/bg-img/breadcumb.jpg" %});">
+    <div class="breadcumb_area bg-img" style="background-image: url({% static 'sell/img/bg-img/breadcumb.jpg' %});">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -16,14 +16,14 @@
 <!-- ##### Breadcumb Area End ##### -->
 
 <!-- ##### Form Area Start ##### -->
-    <div class="checkout_area section-padding-80">
-        <div class="container">
-            <div class="row">
+   <!-- <div class="checkout_area section-padding-80">-->
+        <!-- <div class="container">-->
+           <!--  <div class="row">-->
 
-                <div class="col-12 col-md-6">
+<!--                <div class="col-12 col-md-6">-->
                     <div class="checkout_details_area mt-50 clearfix">
 
-                      <div class="form-wrapper">
+                      <div class="form-wrapper" align="center">
                         <form method="post" action="" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% for field in form %}
@@ -35,18 +35,24 @@
                          {% endif %}
                          </div>
                         {% endfor %}
+                        <br>
+
                          <div class="button-wrapper submit">
-                         <input type="submit" value="Submit" />
+                         <input type="submit" value="提交" style="font-size: 16px" />
                          </div>
                         </form>
                       </div>
 
                     </div>
-                </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
 
-            </div>
-        </div>
-    </div>
+
+     
+
+
 <!-- ##### Form Area End ##### -->
 
 

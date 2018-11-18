@@ -24,7 +24,7 @@ def register(request):
             user_profile = UserProfile(user=user)
             user_profile.save()
 
-            return HttpResponseRedirect("/accounts/login/")
+            return HttpResponseRedirect(reverse('users:login'))
 
     else:
         form = RegistrationForm()
@@ -48,7 +48,7 @@ def login(request):
             else:
                 # 登陆失败
                 return render(request, 'users/login.html', {'form': form,
-                                                            'message': 'Wrong password. Please try again.'})
+                                                            'message': '密码输入错误，请重试。'})
     else:
         form = LoginForm()
 
@@ -62,9 +62,9 @@ def profile(request):
 
 
 @login_required
-def profile_update(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    user_profile = get_object_or_404(UserProfile, pk=pk)
+def profile_update(request):
+    user = request.user
+    user_profile = get_object_or_404(UserProfile, pk=user.id)
 
     if request.method == "POST":
         form = ProfileForm(request.POST)
@@ -80,7 +80,7 @@ def profile_update(request, pk):
             user_profile.telephone = form.cleaned_data['telephone']
             user_profile.save()
 
-            return HttpResponseRedirect(reverse('users:profile', args=[user.id]))
+            return HttpResponseRedirect(reverse('users:profile'))
     else:
         default_data = {'first_name': user.first_name, 'last_name': user.last_name,
                         'org': user_profile.org, 'telephone': user_profile.telephone, }
@@ -96,8 +96,8 @@ def logout(request):
 
 
 @login_required
-def pwd_change(request, pk):
-    user = get_object_or_404(User, pk=pk)
+def pwd_change(request):
+    user = request.user
 
     if request.method == "POST":
         form = PwdChangeForm(request.POST)
@@ -115,12 +115,12 @@ def pwd_change(request, pk):
                 user.is_superuser = 0
                 user.is_staff = 0
                 user.save()
-                return HttpResponseRedirect("/accounts/login/")
+                return HttpResponseRedirect(reverse('users:profile'))
 
             else:
                 return render(request, 'users/pwd_change.html', {'form': form,
                                                                  'user': user,
-                                                                 'message': 'Old password is wrong. Try again'})
+                                                                 'message': '旧密码输入错误。请重试。'})
     else:
         form = PwdChangeForm()
 

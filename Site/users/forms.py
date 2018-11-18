@@ -15,10 +15,10 @@ def email_check(email):
 
 class RegistrationForm(forms.Form):
 
-    username = forms.CharField(label='Username', max_length=50)
-    email = forms.EmailField(label='Email',)
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password Confirmation', widget=forms.PasswordInput)
+    username = forms.CharField(label='用户名', max_length=50)
+    email = forms.EmailField(label='邮箱',)
+    password1 = forms.CharField(label='密码', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='确认密码', widget=forms.PasswordInput)
 
     # Use clean methods to define custom validation rules
 
@@ -70,8 +70,8 @@ class RegistrationForm(forms.Form):
 
 class LoginForm(forms.Form):
 
-    username = forms.CharField(label='Username', max_length=50)
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    username = forms.CharField(label='用户名', max_length=50)
+    password = forms.CharField(label='密码', widget=forms.PasswordInput)
 
     # Use clean methods to define custom validation rules
 
@@ -92,17 +92,17 @@ class LoginForm(forms.Form):
 
 class ProfileForm(forms.Form):
 
-    first_name = forms.CharField(label='First Name', max_length=50, required=False)
-    last_name = forms.CharField(label='Last Name', max_length=50, required=False)
-    org = forms.CharField(label='Organization', max_length=50, required=False)
-    telephone = forms.CharField(label='Telephone', max_length=50, required=False)
+    first_name = forms.CharField(label='名字', max_length=50, required=False)
+    last_name = forms.CharField(label='姓氏', max_length=50, required=False)
+    org = forms.CharField(label='院系', max_length=50, required=False)
+    telephone = forms.CharField(label='电话', max_length=50, required=False)
 
 
 class PwdChangeForm(forms.Form):
-    old_password = forms.CharField(label='Old password', widget=forms.PasswordInput)
+    old_password = forms.CharField(label='旧密码', widget=forms.PasswordInput)
 
-    password1 = forms.CharField(label='New Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password Confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(label='新密码', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='确认新密码', widget=forms.PasswordInput)
 
     # Use clean methods to define custom validation rules
 

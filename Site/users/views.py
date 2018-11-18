@@ -92,7 +92,7 @@ def profile_update(request, pk):
 @login_required
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect("/accounts/login/")
+    return HttpResponseRedirect(reverse('sell:index'))
 
 
 @login_required

@@ -43,7 +43,7 @@ def login(request):
 
             if user is not None and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse('users:profile', args=[user.id]))
+                return HttpResponseRedirect(reverse('sell:index'))
 
             else:
                 # 登陆失败
@@ -56,8 +56,8 @@ def login(request):
 
 
 @login_required
-def profile(request, pk):
-    user = get_object_or_404(User, pk=pk)
+def profile(request):
+    user = request.user
     return render(request, 'users/profile.html', {'user': user})
 
 

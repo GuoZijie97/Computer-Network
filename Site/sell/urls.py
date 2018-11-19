@@ -14,6 +14,8 @@ app_name = 'sell'
 urlpatterns = [
     # ex: /sell/
     path('', views.index, name='index'),
+    path('upload/', views.upload, name='upload'),
+    path('good/', views.good, name='good'),
     # ex: /sell/1/subcategory/
     path('<int:goods_subcategory>/subcategory/', views.subcategory_view, name='subcategory_view'),
 ]

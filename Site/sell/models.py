@@ -28,11 +28,12 @@ class goods(models.Model):
         ('14', "数码/电器"),
     )
     goods_id = models.CharField(max_length=10, primary_key=True)
-    seller_id = models.ForeignKey(User, on_delete=models.CASCADE)
     goods_name = models.CharField(max_length=30)
     goods_category = models.CharField(max_length=5, choices=Goods_Category)
     goods_subcategory = models.CharField(max_length=6, choices=Goods_SubCategory)
-    goods_picture = models.ImageField(upload_to='./sell/', height_field=None, width_field=None)
+    goods_picture1 = models.ImageField(upload_to='./sell/static/upload/', height_field=None, width_field=None)
+    goods_picture2 = models.ImageField(upload_to='./sell/static/upload/', height_field=None, width_field=None)
+    goods_picture3 = models.ImageField(upload_to='./sell/static/upload/', height_field=None, width_field=None)
     goods_price = models.FloatField(max_length=15)
     goods_info = models.CharField(max_length=400)
 

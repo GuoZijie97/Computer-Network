@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from .models import goods
 from django.contrib import auth
 import random
+from django.http import HttpResponse
+from .models import goods, order
+
 
 def index(request):
     context = {}
@@ -42,3 +44,14 @@ def good(request):
 
 def upload(request):
     return render(request, 'sell/upload.html')
+
+def subcategory_view(request, goods_subcategory):
+    goods_list = get_list_or_404(goods, goods_subcategory=goods_subcategory)
+    first_goods = get_object_or_404(goods, goods_subcategory=goods_subcategory)
+    context = {
+        'goods_list': goods_list,
+        'first_goods': first_goods,
+    }
+    return render(request, 'sell/subcategory_goods_list.html', context)
+
+

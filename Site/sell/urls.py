@@ -17,7 +17,8 @@ urlpatterns = [
     # ex: /sell/upload/
     path('upload/', views.upload, name='upload'),
     # ex: /sell/confirm/
-    path('confirm/', views.upload, name='confirm'),
+    path('confirm/', views.confirm, name='confirm'),
+    path('is_selling/', views.is_selling, name='is_selling'),
     #path('good/', views.good, name='good'),
     # ex: /sell/1/subcategory/
     path('<str:goods_subcategory>/subcategory/', views.subcategory_view, name='subcategory_view'),

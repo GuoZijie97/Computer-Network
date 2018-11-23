@@ -40,6 +40,10 @@
 <td align="middle" height="60">姓名</td>
 <td align="middle">{{ user.last_name }}{{user.first_name}}</td>
 </tr>
+    <tr>
+<td align="middle" width="50%"height="60">学号</td>
+<td align="middle" width="50%">{{ user.profile.studentno }}</td>
+</tr>
 <tr>
 <td align="middle" width="50%"height="60">院系</td>
 <td align="middle" width="50%">{{ user.profile.org }}</td>
@@ -47,6 +51,10 @@
 <tr>
 <td align="middle" width="50%"height="60">电话</td>
 <td align="middle" width="50%">{{ user.profile.telephone }}</td>
+</tr>
+    <tr>
+<td align="middle" width="50%"height="60">微信</td>
+<td align="middle" width="50%">{{ user.profile.wechat }}</td>
 </tr>
 </table>
 <br>

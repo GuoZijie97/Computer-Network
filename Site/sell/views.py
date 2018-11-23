@@ -160,15 +160,17 @@ def subcategory_view(request, goods_subcategory):
 @login_required
 def detail(request, pk):
     good = goods.objects.get(pk=pk)
+    user_profile = UserProfile.objects.get(user=good.seller)
 
     if request.method == 'POST':
-        order_start = order.objects.create(goods=good , buyer=request.user)
+        order_start = order.objects.create(goods=good, buyer=request.user)
         order_start.save()
 
         return render(request, 'sell/index.html')
 
     else:
-        return render(request, 'sell/single-product-details.html', {'good': good})
+        return render(request, 'sell/single-product-details.html', {'good': good,
+                                                                    'user_profile': user_profile})
 
 
 @login_required

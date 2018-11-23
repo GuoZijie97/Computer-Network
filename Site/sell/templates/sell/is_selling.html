@@ -15,25 +15,25 @@
                                 <div class="single-product-wrapper">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img src="{{MEDIA_URL}}{{i.goods.goods_picture1}}" alt="" width="100" height="136">
+                                        <img src="{{MEDIA_URL}}{{i.goods_picture1}}" alt="" width="100" height="136">
                                         <!-- Hover Thumb -->
-                                        <img class="hover-img" src="{{MEDIA_URL}}{{i.goods.goods_picture2}}" alt="" width="100" height="136">
+                                        <img class="hover-img" src="{{MEDIA_URL}}{{i.goods_picture2}}" alt="" width="100" height="136">
 
                                     </div>
 
                                     <!-- Product Description -->
                                     <div class="product-description">
-                                        <span>于{{i.order_time}}发起订单</span>
-                                        <h6>{{i.goods}}</h6>
-                                        <p class="product-price">¥ {{i.goods.goods_price}}</p>
+                                        <span>于{{i.goods_time}}发布</span>
+                                        <h6>{{i.goods_name}}</h6>
+                                        <p class="product-price">¥ {{i.goods_price}}</p>
 
                                         <!-- Hover Content -->
                                         <form action="" method="post">{% csrf_token %}
                                            <div class="hover-content">
                                               <!-- Confirm the Order -->
                                               <div class="add-to-cart-btn">
-                                                  <input type="hidden" value="{{i.goods.pk}}" name="goodsid">
-                                                  <input type="submit" value="确认订单" class="btn essence-btn">
+                                                  <input type="hidden" value="{{i.pk}}" name="goodsid">
+                                                  <input type="submit" value="删除商品" class="btn essence-btn">
                                               </div>
                                            </div>
                                         </form>

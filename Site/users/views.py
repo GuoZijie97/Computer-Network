@@ -76,8 +76,10 @@ def profile_update(request):
             user.is_staff = 0
             user.save()
 
+            user_profile.studentno= form.cleaned_data['studentno']
             user_profile.org = form.cleaned_data['org']
             user_profile.telephone = form.cleaned_data['telephone']
+            user_profile.wechat = form.cleaned_data['wechat']
             user_profile.save()
 
             return HttpResponseRedirect(reverse('users:profile'))

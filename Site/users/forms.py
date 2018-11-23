@@ -94,8 +94,10 @@ class ProfileForm(forms.Form):
 
     first_name = forms.CharField(label='名字', max_length=50, required=False)
     last_name = forms.CharField(label='姓氏', max_length=50, required=False)
+    studentno = forms.CharField(label= '学号', max_length=50,  required=True)
     org = forms.CharField(label='院系', max_length=50, required=False)
     telephone = forms.CharField(label='电话', max_length=50, required=False)
+    wechat = forms.CharField(label='微信号', max_length=50, required=False)
 
 
 class PwdChangeForm(forms.Form):

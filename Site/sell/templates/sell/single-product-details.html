@@ -1,0 +1,53 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% load static %}
+
+    <!-- ##### Single Product Details Area Start ##### -->
+    <section class="single_product_details_area d-flex align-items-center">
+
+        <!-- Single Product Thumb -->
+        <div class="single_product_thumb clearfix">
+            <div class="product_thumbnail_slides owl-carousel">
+                <img src="{{MEDIA_URL}}{{good.goods_picture1}}" alt="">
+                <img src="{{MEDIA_URL}}{{good.goods_picture2}}" alt="">
+                <img src="{{MEDIA_URL}}{{good.goods_picture3}}" alt="">
+            </div>
+        </div>
+
+        <!-- Single Product Description -->
+        <div class="single_product_desc clearfix">
+
+            <h2>{{ good.goods_name }}</h2>
+
+            <p class="product-price">￥{{ good.goods_price }}</p>
+            <br>
+            <br>
+
+            <p class="product-desc">{{ good.goods_info}}</p>
+            <p class="product-desc">卖家联系方式</p>
+            <p class="product-desc">邮箱：{{ good.seller.email}}</p>
+            <p class="product-desc">电话：{{ good.seller.telephone}}</p>
+            <p class="product-desc">微信：{{ good.seller.wechat}}</p>
+            <br>
+            <br>
+                <!-- Cart & Favourite Box -->
+            <form action="" method="post">{% csrf_token %}
+                <div class="cart-fav-box d-flex align-items-center">
+                    <!-- Cart -->
+                    <button type="submit" name="addtocart" value="5" class="btn essence-btn">发起订单</button>
+                    <!-- Favourite -->
+                    <div class="product-favourite ml-4">
+                        <a href="#" class="favme fa fa-heart"></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- ##### Single Product Details Area End ##### -->
+
+
+
+<br>
+<br>
+<br>
+{% endblock %}

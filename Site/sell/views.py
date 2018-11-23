@@ -89,7 +89,6 @@ def upload(request):
         return render(request, 'sell/upload.html')
 
 
-
 def subcategory_view(request, goods_subcategory):
     if request.method == 'POST':
         order_by_what = request.POST['order_by_what']
@@ -157,5 +156,24 @@ def subcategory_view(request, goods_subcategory):
                 'num_of_goods': num_of_goods,
             }
     return render(request, 'sell/subcategory_goods_list.html', context)
+
+@login_required
+def detail(request, pk):
+    good = goods.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        order_start = order.objects.create(goods=good, buyer=request.user)
+        order_start.save()
+
+        return render(request, 'sell/index.html')
+
+    else:
+        return render(request, 'sell/single-product-details.html', {'good': good})
+
+
+@login_required
+def confirm(request, pk):
+    if request.method == 'POST':
+        good_confirm = goods.objects.get(pk=pk)
 
 

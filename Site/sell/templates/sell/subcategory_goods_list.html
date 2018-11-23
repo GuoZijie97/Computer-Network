@@ -146,7 +146,7 @@
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span>{{i.goods_time}} 发布</span>
-                                        <a href="single-product-details.html">
+                                        <a href="{% url 'sell:detail' i.pk %}">
                                             <h6>{{i.goods_name}}</h6>
                                         </a>
                                         <p class="product-price">¥ {{i.goods_price}}</p>
@@ -155,7 +155,7 @@
                                         <div class="hover-content">
                                             <!-- Add to Cart -->
                                             <div class="add-to-cart-btn">
-                                                <a href="#" class="btn essence-btn">查 看 详 情</a>
+                                                <a href="{% url 'sell:detail' i.pk %}" class="btn essence-btn">查 看 详 情</a>
                                             </div>
                                         </div>
                                     </div>

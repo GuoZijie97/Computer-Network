@@ -4,6 +4,7 @@ from users.models import UserProfile
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import goods, order
 from PIL import Image
 from shesite.settings import MEDIA_ROOT
@@ -103,18 +104,21 @@ def subcategory_view(request, goods_subcategory):
 
         first_goods = goods_list.first()
         num_of_goods = goods_list.count()
+        paginator = Paginator(goods_list, 9)
+        page = request.GET.get('page')
+        one_page_list = paginator.get_page(page)
 
         if first_goods is not None:
             subcategory_name = first_goods.get_goods_subcategory_display()
             context = {
-                'goods_list': goods_list,
+                'one_page_list': one_page_list,
                 'subcategory_name': subcategory_name,
                 'first_goods': first_goods,
                 'num_of_goods': num_of_goods,
             }
         else:
             context = {
-                'goods_list': goods_list,
+                'one_page_list': one_page_list,
                 'first_goods': first_goods,
                 'num_of_goods': num_of_goods,
             }
@@ -123,17 +127,21 @@ def subcategory_view(request, goods_subcategory):
         goods_list = goods.objects.filter(goods_subcategory=goods_subcategory, is_sold=False).order_by('-goods_time')
         first_goods = goods_list.first()
         num_of_goods = goods_list.count()
+        paginator = Paginator(goods_list, 9)
+        page = request.GET.get('page')
+        one_page_list = paginator.get_page(page)
+
         if first_goods is not None:
             subcategory_name = first_goods.get_goods_subcategory_display()
             context = {
-                'goods_list': goods_list,
+                'one_page_list': one_page_list,
                 'subcategory_name': subcategory_name,
                 'first_goods': first_goods,
                 'num_of_goods': num_of_goods,
             }
         else:
             context = {
-                'goods_list': goods_list,
+                'one_page_list': one_page_list,
                 'first_goods': first_goods,
                 'num_of_goods': num_of_goods,
             }

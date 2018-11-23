@@ -1,33 +1,39 @@
 {% extends "users/base.html" %}
 {% block content %}
 {% load static %}
+    <section class="shop_grid_area section-padding-80">
+        <div class="container">
+            <div class="row">
 
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="shop_grid_product_area">
                        <div class="row">
                             {% if first_goods is not None %}
-                            {% for i in goods_list %}
+                            {% for i in one_page_list %}
                             <!-- Single Product -->
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="single-product-wrapper">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img src="{{MEDIA_URL}}{{i.goods_picture1}}" alt="" width="100" height="136">
+                                        <img src="{{MEDIA_URL}}{{i.goods.goods_picture1}}" alt="" width="100" height="136">
                                         <!-- Hover Thumb -->
-                                        <img class="hover-img" src="{{MEDIA_URL}}{{i.goods_picture2}}" alt="" width="100" height="136">
+                                        <img class="hover-img" src="{{MEDIA_URL}}{{i.goods.goods_picture2}}" alt="" width="100" height="136">
 
                                     </div>
 
                                     <!-- Product Description -->
                                     <div class="product-description">
-                                        <span>{{i.goods_time}}</span>
-                                        <h6>{{i.goods_name}}</h6>
-                                        <p class="product-price">¥ {{i.goods_price}}</p>
+                                        <span>于{{i.order_time}}发起订单</span>
+                                        <h6>{{i.goods}}</h6>
+                                        <p class="product-price">¥ {{i.goods.goods_price}}</p>
 
                                         <!-- Hover Content -->
                                         <form action="" method="post">{% csrf_token %}
                                            <div class="hover-content">
                                               <!-- Confirm the Order -->
                                               <div class="add-to-cart-btn">
-                                                 <a href="{% url 'sell:confirm' i.pk %}" class="btn essence-btn">确认订单</a>
+                                                  <input type="hidden" value="{{i.goods.pk}}" name="goodsid">
+                                                  <input type="submit" value="确认订单" class="btn essence-btn">
                                               </div>
                                            </div>
                                         </form>
@@ -40,18 +46,27 @@
                         </div>
                     </div>
 
-                    <!-- Pagination -->
-                    <nav aria-label="navigation">
-                        <ul class="pagination mt-50 mb-70">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">10</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-                        </ul>
-                    </nav>
+                     <!-- Pagination -->
+                    <div class="pagination">
+                        <span class="step-links">
+                            <a href="?page=1">&laquo; 首页   </a>
+
+                            {% if one_page_list.has_previous %}
+                            <a href="?page={{ one_page_list.previous_page_number }}">上一页   </a>
+                            {% endif %}
+
+                            <span class="current">
+                                第{{ one_page_list.number }}页，共{{ one_page_list.paginator.num_pages }}页
+                            </span>
+
+                            {% if one_page_list.has_next %}
+                            <a href="?page={{ one_page_list.next_page_number }}">   下一页</a>
+                            {% endif %}
+
+                            <a href="?page={{ one_page_list.paginator.num_pages }}">   尾页 &raquo;</a>
+                        </span>
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -1,0 +1,64 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% load static %}
+
+                       <div class="row">
+                            {% if first_goods is not None %}
+                            {% for i in goods_list %}
+                            <!-- Single Product -->
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="single-product-wrapper">
+                                    <!-- Product Image -->
+                                    <div class="product-img">
+                                        <img src="{{MEDIA_URL}}{{i.goods_picture1}}" alt="" width="100" height="136">
+                                        <!-- Hover Thumb -->
+                                        <img class="hover-img" src="{{MEDIA_URL}}{{i.goods_picture2}}" alt="" width="100" height="136">
+
+                                    </div>
+
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                        <span>{{i.goods_time}}</span>
+                                        <h6>{{i.goods_name}}</h6>
+                                        <p class="product-price">¥ {{i.goods_price}}</p>
+
+                                        <!-- Hover Content -->
+                                        <form action="" method="post">{% csrf_token %}
+                                           <div class="hover-content">
+                                              <!-- Confirm the Order -->
+                                              <div class="add-to-cart-btn">
+                                                 <a href="{% url 'sell:confirm' i.pk %}" class="btn essence-btn">确认订单</a>
+                                              </div>
+                                           </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="navigation">
+                        <ul class="pagination mt-50 mb-70">
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">10</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Shop Grid Area End ##### -->
+
+
+
+
+{% endblock %}

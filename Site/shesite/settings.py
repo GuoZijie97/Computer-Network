@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -81,9 +82,12 @@ DATABASES = {
          'ENGINE': 'mysql.connector.django',
          'NAME': 'exchangedb',
          'USER': 'root',
-         'PASSWORD': '19970213',
+         'PASSWORD': '19970501',
          'HOST': 'localhost',
          'PORT': '3306',
+         'OPTIONS': {
+            'charset': 'utf8mb4',  # <--- Use this
+          }
     }
 }
 
@@ -125,3 +129,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Media setting
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

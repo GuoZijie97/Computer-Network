@@ -27,24 +27,28 @@ class goods(models.Model):
         ('13', "文具"),
         ('14', "数码/电器"),
     )
-    goods_id = models.CharField(max_length=10, primary_key=True)
+    goods_id = models.AutoField(primary_key=True)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='goods_seller', verbose_name="the good's seller")
     goods_name = models.CharField(max_length=30)
-    goods_category = models.CharField(max_length=5, choices=Goods_Category)
-    goods_subcategory = models.CharField(max_length=6, choices=Goods_SubCategory)
-    goods_picture1 = models.ImageField(upload_to='./sell/static/upload/', height_field=None, width_field=None)
-    goods_picture2 = models.ImageField(upload_to='./sell/static/upload/', height_field=None, width_field=None)
-    goods_picture3 = models.ImageField(upload_to='./sell/static/upload/', height_field=None, width_field=None)
+    goods_category = models.CharField(max_length=2, choices=Goods_Category)
+    goods_subcategory = models.CharField(max_length=2, choices=Goods_SubCategory)
+    goods_picture1 = models.ImageField(upload_to='img_upload/%Y/%m/%d', height_field=None, width_field=None, default='img_upload/default.jpg')
+    goods_picture2 = models.ImageField(upload_to='img_upload/%Y/%m/%d', height_field=None, width_field=None, default='img_upload/default.jpg')
+    goods_picture3 = models.ImageField(upload_to='img_upload/%Y/%m/%d', height_field=None, width_field=None, default='img_upload/default.jpg')
     goods_price = models.FloatField(max_length=15)
     goods_info = models.CharField(max_length=400)
+    goods_time = models.DateTimeField(auto_now=True, auto_now_add=False,)
+    is_sold = models.BooleanField(default=False)
 
     def __str__(self):
         return self.goods_name
 
 class order(models.Model):
-    orderNo = models.AutoField(primary_key=True)
-    goods_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    seller_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_sell_id', verbose_name="the seller's id",)
-    buyer_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_buyer_id', verbose_name="the buyer's id",)
+    order_id = models.AutoField(primary_key=True)
+    goods = models.OneToOneField(goods, on_delete=models.CASCADE,)
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_buyer', verbose_name="the order's buyer",)
+    order_time = models.DateTimeField(auto_now=True, auto_now_add=False,)
+    is_done = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.orderNo
+        return self.order_id

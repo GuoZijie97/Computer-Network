@@ -3,7 +3,7 @@
 {% load static %}
  	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 
-			<script type="text/javascript">
+    <script type="text/javascript">
 
 	function validate_bkname()
 	{
@@ -53,7 +53,167 @@
 
 	}
 
-</script>
+    </script>
+
+<script type="text/javascript">
+    $(function () {
+
+     /* SCRIPT TO OPEN THE MODAL WITH THE PREVIEW */
+$("#picture1").change(function () {
+  if (this.files && this.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $("#image1").attr("src", e.target.result);
+      $("#modalCrop1").modal("show");
+    }
+    reader.readAsDataURL(this.files[0]);
+  }
+});
+
+$("#picture2").change(function () {
+  if (this.files && this.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $("#image2").attr("src", e.target.result);
+      $("#modalCrop2").modal("show");
+    }
+    reader.readAsDataURL(this.files[0]);
+  }
+});
+
+$("#picture3").change(function () {
+  if (this.files && this.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $("#image3").attr("src", e.target.result);
+      $("#modalCrop3").modal("show");
+    }
+    reader.readAsDataURL(this.files[0]);
+  }
+});
+
+      /* SCRIPTS TO HANDLE THE CROPPER BOX */
+var $image1 = $("#image1");
+var cropBoxData1;
+var canvasData1;
+$("#modalCrop1").on("shown.bs.modal", function () {
+  $image1.cropper({
+    viewMode: 1,
+    aspectRatio: 1/1,
+    minCropBoxWidth: 200,
+    minCropBoxHeight: 200,
+    ready: function () {
+      $image1.cropper("setCanvasData", canvasData1);
+      $image1.cropper("setCropBoxData", cropBoxData1);
+    }
+  });
+}).on("hidden.bs.modal", function () {
+  cropBoxData1 = $image1.cropper("getCropBoxData");
+  canvasData1 = $image1.cropper("getCanvasData");
+  $image1.cropper("destroy");
+});
+
+// Enable zoom in button
+$("#zoom-in1").click(function () {
+  $image1.cropper("zoom", 0.1);
+});
+
+// Enable zoom out button
+$("#zoom-out1").click(function () {
+  $image1.cropper("zoom", -0.1);
+});
+
+var $image2 = $("#image2");
+var cropBoxData2;
+var canvasData2;
+$("#modalCrop2").on("shown.bs.modal", function () {
+  $image2.cropper({
+    viewMode: 1,
+    aspectRatio: 1/1,
+    minCropBoxWidth: 200,
+    minCropBoxHeight: 200,
+    ready: function () {
+      $image2.cropper("setCanvasData", canvasData2);
+      $image2.cropper("setCropBoxData", cropBoxData2);
+    }
+  });
+}).on("hidden.bs.modal", function () {
+  cropBoxData2 = $image2.cropper("getCropBoxData");
+  canvasData2 = $image2.cropper("getCanvasData");
+  $image2.cropper("destroy");
+});
+
+// Enable zoom in button
+$("#zoom-in2").click(function () {
+  $image2.cropper("zoom", 0.1);
+});
+
+// Enable zoom out button
+$("#zoom-out2").click(function () {
+  $image2.cropper("zoom", -0.1);
+});
+
+var $image3 = $("#image3");
+var cropBoxData3;
+var canvasData3;
+$("#modalCrop3").on("shown.bs.modal", function () {
+  $image3.cropper({
+    viewMode: 1,
+    aspectRatio: 1/1,
+    minCropBoxWidth: 200,
+    minCropBoxHeight: 200,
+    ready: function () {
+      $image3.cropper("setCanvasData", canvasData3);
+      $image3.cropper("setCropBoxData", cropBoxData3);
+    }
+  });
+}).on("hidden.bs.modal", function () {
+  cropBoxData3 = $image3.cropper("getCropBoxData");
+  canvasData3 = $image3.cropper("getCanvasData");
+  $image3.cropper("destroy");
+});
+
+// Enable zoom in button
+$("#zoom-in3").click(function () {
+  $image3.cropper("zoom", 0.1);
+});
+
+// Enable zoom out button
+$("#zoom-out3").click(function () {
+  $image3.cropper("zoom", -0.1);
+});
+
+     /* SCRIPT TO COLLECT THE DATA AND POST TO THE SERVER */
+$("#crop1").click(function () {
+  var cropData = $image1.cropper("getData");
+  $("#p1_x").val(cropData["x"]);
+  $("#p1_y").val(cropData["y"]);
+  $("#p1_height").val(cropData["height"]);
+  $("#p1_width").val(cropData["width"]);
+  $("#modalCrop1").modal("hide");
+});
+
+$("#crop2").click(function () {
+  var cropData = $image2.cropper("getData");
+  $("#p2_x").val(cropData["x"]);
+  $("#p2_y").val(cropData["y"]);
+  $("#p2_height").val(cropData["height"]);
+  $("#p2_width").val(cropData["width"]);
+  $("#modalCrop2").modal("hide");
+});
+
+$("#crop3").click(function () {
+  var cropData = $image3.cropper("getData");
+  $("#p3_x").val(cropData["x"]);
+  $("#p3_y").val(cropData["y"]);
+  $("#p3_height").val(cropData["height"]);
+  $("#p3_width").val(cropData["width"]);
+  $("#modalCrop3").modal("hide");
+});
+
+    });
+  </script>
+
 <!-- ##### Breadcumb Area Start ##### -->
     <div class="breadcumb_area bg-img" style="background-image: url({% static "sell/img/bg-img/breadcumb.jpg" %});">
         <div class="container h-100">
@@ -76,11 +236,15 @@
                 <div class="col-12 col-md-6">
                     <div class="checkout_details_area mt-50 clearfix">
 
+                        {% if msg %}
+                        <p> {{msg}}</p>
+                        {% endif %}
+
                         <div class="cart-page-heading mb-30">
                             <h5>请提供商品信息</h5>
                         </div>
 
-                        <form action="{% url 'sell:good'%}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label>名称<span>*</span></label>
@@ -115,15 +279,27 @@
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label>照片1<span>*</span></label>
-                                    <input name="bkimage1" type='file' onchange="readURL(this);" />
+                                    <input name="bkimage1" id="picture1" type='file' onchange="readURL(this);" />
+                                    <input type="hidden" id="p1_x" name="pic1_x" />
+                                    <input type="hidden" id="p1_y" name="pic1_y" />
+                                    <input type="hidden" id="p1_height" name="pic1_height" />
+                                    <input type="hidden" id="p1_width" name="pic1_width" />
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label>照片2<span>*</span></label>
-                                    <input name="bkimage2" type='file' onchange="readURL(this);" />
+                                    <input name="bkimage2" id="picture2" type='file' onchange="readURL(this);" />
+                                    <input type="hidden" id="p2_x" name="pic2_x" />
+                                    <input type="hidden" id="p2_y" name="pic2_y" />
+                                    <input type="hidden" id="p2_height" name="pic2_height" />
+                                    <input type="hidden" id="p2_width" name="pic2_width" />
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label>照片3<span>*</span></label>
-                                    <input name="bkimage3" type='file' onchange="readURL(this);" />
+                                    <input name="bkimage3" id="picture3" type='file' onchange="readURL(this);" />
+                                    <input type="hidden" id="p3_x" name="pic3_x" />
+                                    <input type="hidden" id="p3_y" name="pic3_y" />
+                                    <input type="hidden" id="p3_height" name="pic3_height" />
+                                    <input type="hidden" id="p3_width" name="pic3_width" />
                                 </div>
                                 <br>
                                 <div class="col-12">
@@ -137,9 +313,6 @@
                                 <br>
                                 <br>
                                 <input type="submit" value="上传" class="btn essence-btn" onclick="validate_bkname();validate_bkprice();validate_bktype();validate_bkdescription()">
-                                {% if msg %}
-							    <p> {{msg}}</p>
-							    {% endif %}
                                 <br>
                                 <br>
                                 <br>
@@ -152,6 +325,87 @@
         </>
     </div>
 <!-- ##### Form Area End ##### -->
+
+<!-- MODAL TO CROP THE IMAGE -->
+<div class="modal fade" id="modalCrop1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="text-align: right">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" id="image1" style="max-width: 100%;">
+      </div>
+      <div class="modal-footer">
+        <div class="btn-group pull-left" role="group">
+          <button id="zoom-in1" type="button" class="btn btn-default js-zoom-in" >
+            <span> + </span>
+          </button>
+          <button id="zoom-out1" type="button" class="btn btn-default js-zoom-out">
+            <span> - </span>
+          </button>
+        </div>
+        <button id="crop1" type="button" class="btn btn-primary js-crop-and-upload">确认裁剪</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalCrop2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="text-align: right">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" id="image2" style="max-width: 100%;">
+      </div>
+      <div class="modal-footer">
+        <div class="btn-group pull-left" role="group">
+          <button id="zoom-in2" type="button" class="btn btn-default js-zoom-in" >
+            <span> + </span>
+          </button>
+          <button id="zoom-out2" type="button" class="btn btn-default js-zoom-out">
+            <span> - </span>
+          </button>
+        </div>
+        <button id="crop2" type="button" class="btn btn-primary js-crop-and-upload">确认裁剪</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalCrop3">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="text-align: right">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" id="image3" style="max-width: 100%;">
+      </div>
+      <div class="modal-footer">
+        <div class="btn-group pull-left" role="group">
+          <button id="zoom-in3" type="button" class="btn btn-default js-zoom-in" >
+            <span> + </span>
+          </button>
+          <button id="zoom-out3" type="button" class="btn btn-default js-zoom-out">
+            <span> - </span>
+          </button>
+        </div>
+        <button id="crop3" type="button" class="btn btn-primary js-crop-and-upload">确认裁剪</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <br>
 <br>
 <br>

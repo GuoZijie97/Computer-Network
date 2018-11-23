@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from users.models import UserProfile
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import goods, order
 from PIL import Image
@@ -124,7 +125,17 @@ def subcategory_view(request, goods_subcategory):
             }
 
     else:
-        goods_list = goods.objects.filter(goods_subcategory=goods_subcategory, is_sold=False).order_by('-goods_time')
+        order_by_what = request.GET.get('order_by_what')
+        if order_by_what == 'price_desc':
+            goods_list = goods.objects.filter(goods_subcategory=goods_subcategory, is_sold=False).order_by(
+                '-goods_price')
+        elif order_by_what == 'price_asc':
+            goods_list = goods.objects.filter(goods_subcategory=goods_subcategory, is_sold=False).order_by(
+                'goods_price')
+        else:
+            goods_list = goods.objects.filter(goods_subcategory=goods_subcategory, is_sold=False).order_by(
+                '-goods_time')
+
         first_goods = goods_list.first()
         num_of_goods = goods_list.count()
         paginator = Paginator(goods_list, 9)

@@ -1,6 +1,7 @@
 {% extends "users/base.html" %}
 {% block content %}
 {% load static %}
+
     <!-- ##### Breadcumb Area Start ##### -->
     <div class="breadcumb_area bg-img" style="background-image: url({% static 'sell/img/bg-img/breadcumb.jpg' %});">
         <div class="container h-100">
@@ -76,26 +77,6 @@
                             </div>
                         </div>
 
-                        <!-- ##### Single Widget ##### -->
-                        <div class="widget price mb-50">
-                            <!-- Widget Title -->
-                            <h6 class="widget-title mb-30">筛 选 条 件</h6>
-                            <!-- Widget Title 2 -->
-                            <p class="widget-title2 mb-30">价格</p>
-
-                            <div class="widget-desc">
-                                <div class="slider-range">
-                                    <div data-min="0" data-max="2000" data-unit="¥" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="2000" data-label-result="价格区间：">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    </div>
-                                    <div class="range-price">价格区间: ¥0.00 - ¥2000.00</div>
-                                </div>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
 
@@ -111,14 +92,14 @@
                                     <!-- Sorting -->
                                     <div class="product-sorting d-flex">
                                         <p>排序依据：</p>
-                                        <form action="" method="post">
+                                        <form action="#" method="get" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <select name="order_by_what" id="sortByselect">
                                                 <option value="time">最新发布</option>
                                                 <option value="price_asc">价格: ¥ - ¥¥¥</option>
                                                 <option value="price_desc">价格: ¥¥¥ - ¥</option>
                                             </select>
-                                            <input type="submit" class="d-none" value="">
+                                            <input type="submit" class="" value="刷新排序">
                                         </form>
                                     </div>
                                 </div>

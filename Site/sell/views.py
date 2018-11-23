@@ -162,7 +162,7 @@ def detail(request, pk):
     good = goods.objects.get(pk=pk)
 
     if request.method == 'POST':
-        order_start = order.objects.create(goods=good, buyer=request.user)
+        order_start = order.objects.create(goods=good , buyer=request.user)
         order_start.save()
 
         return render(request, 'sell/index.html')
@@ -172,8 +172,72 @@ def detail(request, pk):
 
 
 @login_required
-def confirm(request, pk):
+def confirm(request):
     if request.method == 'POST':
-        good_confirm = goods.objects.get(pk=pk)
+        id = request.POST['goodsid']
+        order.objects.filter(goods__goods_id=id).update(is_done=True)
+        goods.objects.filter(goods_id=id).update(is_sold=True)
 
+        orders_list = order.objects.filter(goods__seller=request.user, is_done=False).order_by('-order_time')
+        first_goods = orders_list.first()
 
+        paginator = Paginator(orders_list, 9)
+        page = request.GET.get('page')
+        one_page_list = paginator.get_page(page)
+
+        context = {
+                'one_page_list': one_page_list,
+                'first_goods': first_goods,
+            }
+
+        return render(request, 'sell/confirm.html', context)
+
+    else:
+        orders_list = order.objects.filter(goods__seller=request.user, is_done=False).order_by('-order_time')
+        first_goods = orders_list.first()
+
+        paginator = Paginator(orders_list, 9)
+        page = request.GET.get('page')
+        one_page_list = paginator.get_page(page)
+
+        context = {
+            'one_page_list': one_page_list,
+            'first_goods': first_goods,
+        }
+
+        return render(request, 'sell/confirm.html', context)
+
+@login_required
+def is_selling(request):
+    if request.method == 'POST':
+        id = request.POST['goodsid']
+        goods.objects.filter(goods_id=id).delete()
+
+        goods_list = goods.objects.filter(seller=request.user, is_sold=False).order_by('-goods_time')
+        first_goods = goods_list.first()
+
+        paginator = Paginator(goods_list, 9)
+        page = request.GET.get('page')
+        one_page_list = paginator.get_page(page)
+
+        context = {
+                'one_page_list': one_page_list,
+                'first_goods': first_goods,
+            }
+
+        return render(request, 'sell/is_selling.html', context)
+
+    else:
+        goods_list = goods.objects.filter(seller=request.user, is_sold=False).order_by('-goods_time')
+        first_goods = goods_list.first()
+
+        paginator = Paginator(goods_list, 9)
+        page = request.GET.get('page')
+        one_page_list = paginator.get_page(page)
+
+        context = {
+            'one_page_list': one_page_list,
+            'first_goods': first_goods,
+        }
+
+        return render(request, 'sell/is_selling.html', context)

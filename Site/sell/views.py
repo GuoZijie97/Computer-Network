@@ -253,12 +253,11 @@ def is_selling(request):
         return render(request, 'sell/is_selling.html', context)
 
 def graduation(request):
-    goods_list = goods.objects.all().order_by( '-goods_time')
+    goods_list = goods.objects.all().order_by('-goods_time')
     first_goods = goods_list.first()
 
     paginator = Paginator(goods_list, 9)
-    page = request.GET.get('page')
-    one_page_list = paginator.get_page(page)
+    one_page_list = paginator.get_page(1)
 
     context = {
         'one_page_list': one_page_list,

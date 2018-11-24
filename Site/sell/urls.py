@@ -32,4 +32,6 @@ urlpatterns = [
     path('is_selling/', views.is_selling, name='is_selling'),
     # ex: /sell/search/
     path('search/', views.get_search, name='search'),
+    #ex: /sell/contact/
+    path('contact/', views.contact, name='contact'),
 ]

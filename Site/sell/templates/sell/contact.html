@@ -1,0 +1,24 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% load static %}
+
+ <div class="contact-area d-flex align-items-center">
+
+        <div class="google-map">
+            <image src="{% static 'sell/img/bg-img/map.jpg' %}" alt=""></image>
+        </div>
+
+        <div class="contact-info">
+            <h2>联 系 我 们</h2>
+            <p>若您在使用网站过程中遇到技术问题，或希望对网站的建设发展提出建议，欢迎与我们团队联系。</p>
+
+            <div class="contact-address mt-50">
+                <p><span>地址：</span> 北京市海淀区清华大学</p>
+                <p><span>电话：</span> (010) 6279 1220</p>
+                <p><a href="mailto:contact@shewebsite.com">contact@shewebsite.com</a></p>
+            </div>
+        </div>
+
+ </div>
+
+{% endblock %}

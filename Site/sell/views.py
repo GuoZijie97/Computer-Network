@@ -28,6 +28,9 @@ def index(request):
 
     return render(request, 'sell/index.html', context)
 
+def contact(request):
+    return render(request, 'sell/contact.html',{ })
+
 @login_required
 def upload(request):
     if request.method == 'POST':

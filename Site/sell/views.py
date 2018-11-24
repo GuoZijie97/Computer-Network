@@ -19,7 +19,7 @@ def index(request):
     first_goods = goods_list.first()
     if first_goods is not None:
         if goods_list.count() > 4:
-            goods_list = goods_list[0:3]
+            goods_list = goods_list[0:4]
 
     context = {
         'goods_list': goods_list,

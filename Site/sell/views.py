@@ -15,8 +15,16 @@ import os
 
 
 def index(request):
-    context = {}
-    return render(request, 'sell/index.html', context)
+    goods1 = goods.objects.all().order_by('-goods_time')[0]
+    goods2 = goods.objects.all().order_by('-goods_time')[1]
+    goods3 = goods.objects.all().order_by('-goods_time')[2]
+    goods4 = goods.objects.all().order_by('-goods_time')[3]
+
+    return render(request, 'sell/index.html', {'goods1': goods1,
+                                               'goods2': goods2,
+                                               'goods3': goods3,
+                                               'goods4': goods4,
+                                               })
 
 @login_required
 def upload(request):
@@ -243,3 +251,18 @@ def is_selling(request):
         }
 
         return render(request, 'sell/is_selling.html', context)
+
+def graduation(request):
+    goods_list = goods.objects.all().order_by( '-goods_time')
+    first_goods = goods_list.first()
+
+    paginator = Paginator(goods_list, 9)
+    page = request.GET.get('page')
+    one_page_list = paginator.get_page(page)
+
+    context = {
+        'one_page_list': one_page_list,
+        'first_goods': first_goods,
+    }
+
+    return render(request, 'sell/graduation.html', context)

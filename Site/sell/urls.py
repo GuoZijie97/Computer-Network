@@ -18,6 +18,7 @@ app_name = 'sell'
 urlpatterns = [
     # ex: /sell/
     path('', views.index, name='index'),
+    path('graduation/', views.graduation, name='graduation'),
     # ex: /sell/upload/
     path('upload/', views.upload, name='upload'),
     # ex: /sell/confirm/

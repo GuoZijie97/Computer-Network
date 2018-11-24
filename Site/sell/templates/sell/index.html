@@ -16,7 +16,7 @@
                         <br>
                         <br>
                         <h2>毕业季 闲置好物</h2>
-                        <a href="#" class="btn essence-btn">查看精选</a>
+                        <a href="{% url 'sell:graduation' %}" class="btn essence-btn">查看精选</a>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({% static "sell/img/bg-img/bg-2.jpg" %});">
                         <div class="catagory-content">
-                            <a href="#">美妆洗护</a>
+                            <a href="{% url 'sell:subcategory_view' '5'%}">美妆洗护</a>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({% static "sell/img/bg-img/bg-3.jpg" %});">
                         <div class="catagory-content">
-                            <a href="#">图 书</a>
+                            <a href="{% url 'sell:subcategory_view' '12'%}">图 书</a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({% static "sell/img/bg-img/bg-4.jpg" %});">
                         <div class="catagory-content">
-                            <a href="#">自行车</a>
+                            <a href="{% url 'sell:subcategory_view' '9'%}">自行车</a>
                         </div>
                     </div>
                 </div>
@@ -73,14 +73,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="popular-products-slides owl-carousel">
-
                         <!-- Single Product -->
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="{% static "sell/img/product-img/product-1.jpg" %}" alt="">
+                                <img src="{{MEDIA_URL}}{{goods1.goods_picture1}}" alt="">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="{% static "sell/img/product-img/product-2.jpg" %}" alt="">
+                                <img class="hover-img" src="{{MEDIA_URL}}{goods1.goods_picture2}}" alt="">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
@@ -88,17 +87,17 @@
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
-                                <span>topshop</span>
-                                <a href="single-product-details.html">
-                                    <h6>Knot Front Mini Dress</h6>
+                                <span>{{goods1.goods_time}} 发布</span>
+                                <a href="{% url 'sell:detail' goods1.pk %}">
+                                    <h6>{{goods1.goods_name}}</h6>
                                 </a>
-                                <p class="product-price">$80.00</p>
+                                <p class="product-price">¥ {{goods1.goods_price}}</p>
 
                                 <!-- Hover Content -->
                                 <div class="hover-content">
                                     <!-- Add to Cart -->
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">联 系 卖 家</a>
+                                        <a href="{% url 'sell:detail' goods1.pk %}" class="btn essence-btn">查 看 详 情</a>
                                     </div>
                                 </div>
                             </div>
@@ -108,9 +107,9 @@
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="{% static "sell/img/product-img/product-2.jpg" %}" alt="">
+                                <img src="{{MEDIA_URL}}{{goods2.goods_picture1}}" alt="">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="{% static "sell/img/product-img/product-3.jpg" %}" alt="">
+                                <img class="hover-img" src="{{MEDIA_URL}}{goods2.goods_picture2}}" alt="">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
@@ -118,17 +117,17 @@
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
-                                <span>topshop</span>
-                                <a href="single-product-details.html">
-                                    <h6>Poplin Displaced Wrap Dress</h6>
+                                <span>{{goods2.goods_time}} 发布</span>
+                                <a href="{% url 'sell:detail' goods2.pk %}">
+                                    <h6>{{goods2.goods_name}}</h6>
                                 </a>
-                                <p class="product-price">$80.00</p>
+                                <p class="product-price">¥ {{goods2.goods_price}}</p>
 
                                 <!-- Hover Content -->
                                 <div class="hover-content">
                                     <!-- Add to Cart -->
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">联 系 卖 家</a>
+                                        <a href="{% url 'sell:detail' goods2.pk %}" class="btn essence-btn">查 看 详 情</a>
                                     </div>
                                 </div>
                             </div>
@@ -138,15 +137,9 @@
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="{% static "sell/img/product-img/product-3.jpg" %}" alt="">
+                                <img src="{{MEDIA_URL}}{{goods3.goods_picture1}}" alt="">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="{% static "sell/img/product-img/product-4.jpg" %}" alt="">
-
-                                <!-- Product Badge -->
-                                <div class="product-badge offer-badge">
-                                    <span>-30%</span>
-                                </div>
-
+                                <img class="hover-img" src="{{MEDIA_URL}}{goods3.goods_picture2}}" alt="">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
@@ -154,17 +147,17 @@
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
-                                <span>mango</span>
-                                <a href="single-product-details.html">
-                                    <h6>PETITE Crepe Wrap Mini Dress</h6>
+                                <span>{{goods3.goods_time}} 发布</span>
+                                <a href="{% url 'sell:detail' goods3.pk %}">
+                                    <h6>{{goods3.goods_name}}</h6>
                                 </a>
-                                <p class="product-price"><span class="old-price">$75.00</span> $55.00</p>
+                                <p class="product-price">¥ {{goods3.goods_price}}</p>
 
                                 <!-- Hover Content -->
                                 <div class="hover-content">
                                     <!-- Add to Cart -->
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">联 系 卖 家</a>
+                                        <a href="{% url 'sell:detail' goods3.pk %}" class="btn essence-btn">查 看 详 情</a>
                                     </div>
                                 </div>
                             </div>
@@ -174,15 +167,9 @@
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="{% static "sell/img/product-img/product-4.jpg" %}" alt="">
+                                <img src="{{MEDIA_URL}}{{goods4.goods_picture1}}" alt="">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="{% static "sell/img/product-img/product-5.jpg" %}" alt="">
-
-                                <!-- Product Badge -->
-                                <div class="product-badge new-badge">
-                                    <span>New</span>
-                                </div>
-
+                                <img class="hover-img" src="{{MEDIA_URL}}{goods4.goods_picture2}}" alt="">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
@@ -190,17 +177,17 @@
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
-                                <span>mango</span>
-                                <a href="single-product-details.html">
-                                    <h6>PETITE Belted Jumper Dress</h6>
+                                <span>{{goods4.goods_time}} 发布</span>
+                                <a href="{% url 'sell:detail' goods4.pk %}">
+                                    <h6>{{goods4.goods_name}}</h6>
                                 </a>
-                                <p class="product-price">$80.00</p>
+                                <p class="product-price">¥ {{goods4.goods_price}}</p>
 
                                 <!-- Hover Content -->
                                 <div class="hover-content">
                                     <!-- Add to Cart -->
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">联 系 卖 家</a>
+                                        <a href="{% url 'sell:detail' goods4.pk %}" class="btn essence-btn">查 看 详 情</a>
                                     </div>
                                 </div>
                             </div>

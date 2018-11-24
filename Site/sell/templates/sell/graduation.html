@@ -1,21 +1,20 @@
 {% extends "users/base.html" %}
 {% block content %}
 {% load static %}
+<!-- ##### Breadcumb Area Start ##### -->
     <div class="breadcumb_area bg-img" style="background-image: url({% static 'sell/img/bg-img/breadcumb.jpg' %});">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="page-title text-center">
-                        {% if first_goods is None %}
-                        <h2>您没有正在出售的商品</h2>
-                        {% else %}
-                        <h2>正在出售的商品</h2>
-                        {% endif %}
+                        <h2>毕业季精选好物</h2>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<!-- ##### Breadcumb Area End ##### -->
+
     <section class="shop_grid_area section-padding-80">
         <div class="container">
             <div class="row">
@@ -39,16 +38,17 @@
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span>于{{i.goods_time}}发布</span>
-                                        <h6>{{i.goods_name}}</h6>
+                                        <a href="{% url 'sell:detail' i.pk %}">
+                                            <h6>{{i.goods_name}}</h6>
+                                        </a>
                                         <p class="product-price">¥ {{i.goods_price}}</p>
 
                                         <!-- Hover Content -->
                                         <form action="" method="post">{% csrf_token %}
                                            <div class="hover-content">
-                                              <!-- Confirm the Order -->
+                                              <!-- See the Detail -->
                                               <div class="add-to-cart-btn">
-                                                  <input type="hidden" value="{{i.pk}}" name="goodsid">
-                                                  <input type="submit" value="删除商品" class="btn essence-btn">
+                                                <a href="{% url 'sell:detail' i.pk %}" class="btn essence-btn">查 看 详 情</a>
                                               </div>
                                            </div>
                                         </form>
@@ -61,26 +61,6 @@
                         </div>
                     </div>
 
-                     <!-- Pagination -->
-                    <div class="pagination">
-                        <span class="step-links">
-                            <a href="?page=1">&laquo; 首页   </a>
-
-                            {% if one_page_list.has_previous %}
-                            <a href="?page={{ one_page_list.previous_page_number }}">上一页   </a>
-                            {% endif %}
-
-                            <span class="current">
-                                第{{ one_page_list.number }}页，共{{ one_page_list.paginator.num_pages }}页
-                            </span>
-
-                            {% if one_page_list.has_next %}
-                            <a href="?page={{ one_page_list.next_page_number }}">   下一页</a>
-                            {% endif %}
-
-                            <a href="?page={{ one_page_list.paginator.num_pages }}">   尾页 &raquo;</a>
-                        </span>
-                    </div>
 
                 </div>
             </div>

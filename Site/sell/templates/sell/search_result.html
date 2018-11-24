@@ -1,0 +1,135 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% load static %}
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb_area bg-img" style="background-image: url({% static 'sell/img/bg-img/breadcumb.jpg' %});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>搜 索 结 果</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+ <!-- ##### Shop Grid Area Start ##### -->
+    <section class="shop_grid_area section-padding-80">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="shop_grid_product_area">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product-topbar d-flex align-items-center justify-content-between">
+                                    <!-- Total Products -->
+                                    <div class="total-products">
+                                        <p>关键字： <span>{{ keyword }}</span> </p>
+                                        <p>搜索到 <span>{{ num_of_goods }}</span> 件商品</p>
+                                        {% if order_by_what == 'price_asc' %}
+                                        <p>按 <span>价格: ¥ - ¥¥¥</span> 排序</p>
+                                        {% elif order_by_what == 'price_desc' %}
+                                        <p>按 <span>价格: ¥¥¥ - ¥</span> 排序</p>
+                                        {% else %}
+                                        <p>按 <span>最新发布</span> 排序</p>
+                                        {% endif %}
+                                    </div>
+                                    <!-- Sorting -->
+                                    <div class="product-sorting d-flex">
+                                        <p>排序依据：</p>
+                                        <form action="" method="get" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <select name="order_by_what" id="sortByselect">
+                                                <option value="time">最新发布</option>
+                                                <option value="price_asc">价格: ¥ - ¥¥¥</option>
+                                                <option value="price_desc">价格: ¥¥¥ - ¥</option>
+                                            </select>
+                                            <input type="hidden" name="keyword" value="{{keyword}}"/>
+                                            <input type="submit" class="" value="刷新排序"/>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            {% if first_goods is not None %}
+                            {% for i in one_page_list %}
+                            <!-- Single Product -->
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="single-product-wrapper">
+                                    <!-- Product Image -->
+                                    <div class="product-img">
+                                        <img src="{{MEDIA_URL}}{{i.goods_picture1}}" alt="">
+                                        <!-- Hover Thumb -->
+                                        <img class="hover-img" src="{{MEDIA_URL}}{{i.goods_picture2}}" alt="">
+
+                                        <!-- Favourite -->
+                                        <div class="product-favourite">
+                                            <a href="#" class="favme fa fa-heart"></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                        <span>{{i.goods_time}} 发布</span>
+                                        <a href="{% url 'sell:detail' i.pk %}">
+                                            <h6>{{i.goods_name}}</h6>
+                                        </a>
+                                        <p class="product-price">¥ {{i.goods_price}}</p>
+
+                                        <!-- Hover Content -->
+                                        <div class="hover-content">
+                                            <!-- Add to Cart -->
+                                            <div class="add-to-cart-btn">
+                                                <a href="{% url 'sell:detail' i.pk %}" class="btn essence-btn">查 看 详 情</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                                <div class="page-title text-center">
+                                    <h3>暂无符合搜索关键字的商品</h3>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <span class="step-links">
+                            <a href="?page=1&keyword={{keyword}}">&laquo; 首页   </a>
+
+                            {% if one_page_list.has_previous %}
+                            <a href="?page={{ one_page_list.previous_page_number }}&keyword={{keyword}}">上一页   </a>
+                            {% endif %}
+
+                            <span class="current">
+                                第{{ one_page_list.number }}页，共{{ one_page_list.paginator.num_pages }}页
+                            </span>
+
+                            {% if one_page_list.has_next %}
+                            <a href="?page={{ one_page_list.next_page_number }}&keyword={{keyword}}">   下一页</a>
+                            {% endif %}
+
+                            <a href="?page={{ one_page_list.paginator.num_pages }}&keyword={{keyword}}">   尾页 &raquo;</a>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Shop Grid Area End ##### -->
+
+
+
+
+{% endblock %}

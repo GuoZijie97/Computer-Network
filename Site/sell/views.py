@@ -267,3 +267,56 @@ def graduation(request):
     }
 
     return render(request, 'sell/graduation.html', context)
+
+def get_search(request):
+    if request.method == 'POST':
+        keyword = request.POST.get('search')
+        result_list = goods.objects.filter(goods_name__icontains=keyword, is_sold=False)
+        result1 = goods.objects.filter(goods_info__icontains=keyword, is_sold=False)
+        result_list = result_list.union(result1)
+        result_list = result_list.order_by('-goods_time')
+        order_by_what = 'time'
+        first_goods = result_list.first()
+        num_of_goods = result_list.count()
+
+        paginator = Paginator(result_list, 16)
+        page = request.GET.get('page')
+        one_page_list = paginator.get_page(page)
+
+        context = {
+            'one_page_list': one_page_list,
+            'first_goods': first_goods,
+            'num_of_goods': num_of_goods,
+            'keyword': keyword,
+            'order_by_what': order_by_what,
+        }
+    else:
+        keyword = request.GET.get('keyword')
+        result_list = goods.objects.filter(goods_name__icontains=keyword, is_sold=False)
+        result1 = goods.objects.filter(goods_info__icontains=keyword, is_sold=False)
+        result_list = result_list.union(result1)
+
+        order_by_what = request.GET.get('order_by_what')
+        if order_by_what == 'price_desc':
+            result_list = result_list.order_by('-goods_price')
+        elif order_by_what == 'price_asc':
+            result_list = result_list.order_by('goods_price')
+        else:
+            result_list = result_list.order_by('-goods_time')
+
+        first_goods = result_list.first()
+        num_of_goods = result_list.count()
+
+        paginator = Paginator(result_list, 16)
+        page = request.GET.get('page')
+        one_page_list = paginator.get_page(page)
+
+        context = {
+            'one_page_list': one_page_list,
+            'first_goods': first_goods,
+            'num_of_goods': num_of_goods,
+            'keyword': keyword,
+            'order_by_what': order_by_what,
+        }
+
+    return render(request, 'sell/search_result.html', context)

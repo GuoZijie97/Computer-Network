@@ -99,7 +99,8 @@
             <div class="header-meta d-flex clearfix justify-content-end">
                 <!-- Search Area -->
                 <div class="search-area">
-                    <form action="#" method="post">
+                    <form action="{% url 'sell:search' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <input type="search" name="search" id="headerSearch" placeholder="搜索商品">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>

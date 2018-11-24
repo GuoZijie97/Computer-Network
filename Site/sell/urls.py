@@ -30,4 +30,6 @@ urlpatterns = [
     url(r'^[0-9]*/single-product-details/(?P<path>.*)$', serve, {"document_root": BASE_DIR}),
     # ex: /sell/is_selling/
     path('is_selling/', views.is_selling, name='is_selling'),
+    # ex: /sell/search/
+    path('search/', views.get_search, name='search'),
 ]

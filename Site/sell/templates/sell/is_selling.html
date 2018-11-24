@@ -1,6 +1,21 @@
 {% extends "users/base.html" %}
 {% block content %}
 {% load static %}
+    <div class="breadcumb_area bg-img" style="background-image: url({% static 'sell/img/bg-img/breadcumb.jpg' %});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        {% if first_goods is None %}
+                        <h2>您没有正在出售的商品</h2>
+                        {% else %}
+                        <h2>正在出售的商品</h2>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="shop_grid_area section-padding-80">
         <div class="container">
             <div class="row">

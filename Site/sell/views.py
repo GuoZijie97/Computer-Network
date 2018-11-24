@@ -15,16 +15,18 @@ import os
 
 
 def index(request):
-    goods1 = goods.objects.all().order_by('-goods_time')[0]
-    goods2 = goods.objects.all().order_by('-goods_time')[1]
-    goods3 = goods.objects.all().order_by('-goods_time')[2]
-    goods4 = goods.objects.all().order_by('-goods_time')[3]
+    goods_list = goods.objects.filter(is_sold=False).order_by('-goods_time')
+    first_goods = goods_list.first()
+    if first_goods is not None:
+        if goods_list.count() > 4:
+            goods_list = goods_list[0:3]
 
-    return render(request, 'sell/index.html', {'goods1': goods1,
-                                               'goods2': goods2,
-                                               'goods3': goods3,
-                                               'goods4': goods4,
-                                               })
+    context = {
+        'goods_list': goods_list,
+        'first_goods': first_goods,
+    }
+
+    return render(request, 'sell/index.html', context)
 
 @login_required
 def upload(request):

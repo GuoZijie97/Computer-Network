@@ -52,3 +52,12 @@ class order(models.Model):
 
     def __str__(self):
         return self.order_id
+
+class like(models.Model):
+    like_id = models.AutoField(primary_key=True)
+    goods = models.ForeignKey(goods, on_delete=models.CASCADE, related_name='goods_liker', verbose_name="the goods liked",)
+    liker =  models.ForeignKey(User, on_delete=models.CASCADE, related_name='liker_like', verbose_name="the goods liker",)
+    like_time = models.DateTimeField(auto_now=True, auto_now_add=False,)
+
+    def __str__(self):
+        return self.like_id

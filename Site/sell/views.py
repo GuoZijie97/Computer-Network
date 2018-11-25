@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from .models import goods, order
+from .models import goods, order, like
 from PIL import Image
 from shesite.settings import MEDIA_ROOT
 import time
@@ -75,21 +75,21 @@ def upload(request):
 
             image1 = Image.open(t.goods_picture1)
             cropped_image1 = image1.crop((pic1_x, pic1_y, pic1_width + pic1_x, pic1_height + pic1_y))
-            resized_image1 = cropped_image1.resize((200, 200), Image.ANTIALIAS)
+            resized_image1 = cropped_image1.resize((800, 800), Image.ANTIALIAS)
             filename1 = str(t.goods_picture1)
             newimage1 = os.path.join(MEDIA_ROOT, filename1)
             resized_image1.save(newimage1)
 
             image2 = Image.open(t.goods_picture2)
             cropped_image2 = image2.crop((pic2_x, pic2_y, pic2_width + pic2_x, pic2_height + pic2_y))
-            resized_image2 = cropped_image2.resize((200, 200), Image.ANTIALIAS)
+            resized_image2 = cropped_image2.resize((800, 800), Image.ANTIALIAS)
             filename2 = str(t.goods_picture2)
             newimage2 = os.path.join(MEDIA_ROOT, filename2)
             resized_image2.save(newimage2)
 
             image3 = Image.open(t.goods_picture3)
             cropped_image3 = image3.crop((pic3_x, pic3_y, pic3_width + pic3_x, pic3_height + pic3_y))
-            resized_image3 = cropped_image3.resize((200, 200), Image.ANTIALIAS)
+            resized_image3 = cropped_image3.resize((800, 800), Image.ANTIALIAS)
             filename3 = str(t.goods_picture3)
             newimage3 = os.path.join(MEDIA_ROOT, filename3)
             resized_image3.save(newimage3)
@@ -99,7 +99,7 @@ def upload(request):
             return render(request, 'sell/upload.html', {'msg': "上传成功！"})
 
     else:
-        return render(request, 'sell/upload.html')
+            return render(request, 'sell/upload.html')
 
 
 def subcategory_view(request, goods_subcategory):
@@ -174,16 +174,65 @@ def subcategory_view(request, goods_subcategory):
 def detail(request, pk):
     good = goods.objects.get(pk=pk)
     user_profile = UserProfile.objects.get(user=good.seller)
+    favor = like.objects.filter(goods=good, liker=request.user)
 
     if request.method == 'POST':
         order_start = order.objects.create(goods=good, buyer=request.user)
         order_start.save()
 
-        return render(request, 'sell/index.html')
+        msg = '订单发起成功！'
+
+        context = {
+            'good': good,
+            'user_profile': user_profile,
+            'msg': msg,
+            'favor': favor,
+        }
+        return render(request, 'sell/single-product-details.html', context)
 
     else:
-        return render(request, 'sell/single-product-details.html', {'good': good,
-                                                                    'user_profile': user_profile})
+        context = {
+            'good': good,
+            'user_profile': user_profile,
+            'favor': favor,
+        }
+        return render(request, 'sell/single-product-details.html', context)
+
+@login_required
+def like_view(request, pk):
+    good = goods.objects.get(pk=pk)
+    favor = like.objects.filter(goods=good, liker=request.user)
+
+    if favor:
+        favor.delete()
+    else:
+        favor = like.objects.create(goods=good, liker=request.user)
+        favor.save()
+    return HttpResponseRedirect(reverse('sell:detail', args=[pk]))
+
+@login_required
+def favorite_list(request):
+    if request.method == 'POST':
+        id_delete = request.POST['id_delete']
+        favor = like.objects.filter(pk=id_delete)
+        if favor:
+            favor.delete()
+
+    favor_list = like.objects.filter(liker=request.user, goods__is_sold=False).order_by('-like_time')
+    first_goods = favor_list.first()
+    num_of_goods = favor_list.count()
+
+    paginator = Paginator(favor_list, 9)
+    page = request.GET.get('page')
+    one_page_list = paginator.get_page(page)
+
+    context = {
+        'one_page_list': one_page_list,
+        'first_goods': first_goods,
+        'num_of_goods': num_of_goods,
+    }
+
+    return render(request, 'sell/favorite_list.html', context)
 
 
 @login_required

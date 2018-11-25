@@ -36,18 +36,24 @@
                     <!-- Cart -->
                     <button type="submit" name="addtocart" value="5" class="btn essence-btn">发起订单</button>
                     <!-- Favourite -->
+                    {% if favor %}
                     <div class="product-favourite ml-4">
-                        <a href="#" class="favme fa fa-heart"></a>
+                        <a href="{% url 'sell:like_view' good.pk %}" data-toggle="tooltip" data-placement="bottom" title="取消收藏"><img src="{% static 'sell/img/core-img/heart-red.svg' %}" height="30px" width="30px" alt=""></a>
                     </div>
+                    {% else %}
+                    <div class="product-favourite ml-4">
+                        <a href="{% url 'sell:like_view' good.pk %}" data-toggle="tooltip" data-placement="bottom" title="加入收藏"><img src="{% static 'sell/img/core-img/heart-gray.svg' %}" height="30px" width="30px" alt=""></a>
+                    </div>
+                    {% endif %}
                 </div>
             </form>
+            {% if msg %}
+            <p class="product-desc">{{ msg }}</p>
+            {% endif %}
         </div>
     </section>
     <!-- ##### Single Product Details Area End ##### -->
 
 
 
-<br>
-<br>
-<br>
 {% endblock %}

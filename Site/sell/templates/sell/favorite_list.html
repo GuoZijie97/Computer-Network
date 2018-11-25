@@ -1,0 +1,122 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% load static %}
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb_area bg-img" style="background-image: url({% static 'sell/img/bg-img/breadcumb.jpg' %});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>我 的 收 藏</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+ <!-- ##### Shop Grid Area Start ##### -->
+    <section class="shop_grid_area section-padding-80">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="shop_grid_product_area">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product-topbar d-flex align-items-center justify-content-between">
+                                    <!-- Total Products -->
+                                    <div class="total-products">
+                                        <p>共 <span>{{ num_of_goods }}</span> 件商品</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            {% if first_goods is not None %}
+                            {% for i in one_page_list %}
+                            <!-- Single Product -->
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="single-product-wrapper">
+                                    <!-- Product Image -->
+                                    <div class="product-img">
+                                        <img src="{{MEDIA_URL}}{{i.goods.goods_picture1}}" alt="">
+                                        <!-- Hover Thumb -->
+                                        <img class="hover-img" src="{{MEDIA_URL}}{{i.goods.goods_picture2}}" alt="">
+
+                                    </div>
+
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                        <span>{{i.like_time}} 收藏</span>
+                                        <a href="{% url 'sell:detail' i.goods.pk %}">
+                                            <h6>{{i.goods.goods_name}}</h6>
+                                        </a>
+                                        <p class="product-price">¥ {{i.goods.goods_price}}</p>
+
+                                        <!-- Hover Content -->
+                                        <div class="hover-content">
+                                            <!-- Add to Cart -->
+                                            <div class="add-to-cart-btn">
+                                                <a href="{% url 'sell:detail' i.goods.pk %}" class="btn essence-btn">查 看 详 情</a>
+                                            </div>
+                                        </div>
+
+                                        <form action="" method="post">{% csrf_token %}
+                                              <!-- Delete the like -->
+                                              <div class="add-to-cart-btn">
+                                                  <input type="hidden" value="{{i.pk}}" name="id_delete">
+                                                  <input type="submit" value="取消收藏" class="btn essence-btn">
+                                              </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                                <div class="page-title text-center">
+                                    <h3>暂无收藏商品</h3>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <span class="step-links">
+                            <a href="?page=1">&laquo; 首页   </a>
+
+                            {% if one_page_list.has_previous %}
+                            <a href="?page={{ one_page_list.previous_page_number }}">上一页   </a>
+                            {% endif %}
+
+                            <span class="current">
+                                第{{ one_page_list.number }}页，共{{ one_page_list.paginator.num_pages }}页
+                            </span>
+
+                            {% if one_page_list.has_next %}
+                            <a href="?page={{ one_page_list.next_page_number }}">   下一页</a>
+                            {% endif %}
+
+                            <a href="?page={{ one_page_list.paginator.num_pages }}">   尾页 &raquo;</a>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Shop Grid Area End ##### -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+{% endblock %}

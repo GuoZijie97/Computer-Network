@@ -85,7 +85,7 @@
                                     <li><a href="{% url 'users:profile' %}">个人信息</a></li>
                                     <li><a href="{% url 'sell:confirm' %}">待确认订单</a></li>
                                     <li><a href="{% url 'sell:is_selling' %}">正在出售</a></li>
-                                    <li><a href="checkout.html">我的收藏</a></li>
+                                    <li><a href="{% url 'sell:favorite_list' %}">我的收藏</a></li>
                                 </ul>
                             </li>
                             <li><a href="{% url 'sell:contact' %}">联系我们</a></li>

@@ -28,6 +28,10 @@ urlpatterns = [
     # ex: /sell/5/single-product-details/
     path('<int:pk>/single-product-details/', views.detail, name='detail'),
     url(r'^[0-9]*/single-product-details/(?P<path>.*)$', serve, {"document_root": BASE_DIR}),
+    # ex: /sell/5/like-view/
+    path('<int:pk>/like-view/', views.like_view, name='like_view'),
+    # ex: /sell/favorite-list/
+    path('favorite-list/', views.favorite_list, name='favorite_list'),
     # ex: /sell/is_selling/
     path('is_selling/', views.is_selling, name='is_selling'),
     # ex: /sell/search/
